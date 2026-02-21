@@ -1,5 +1,9 @@
 import dotenv from 'dotenv';
-import path from 'path';
+import { resolve } from 'path';
+
+dotenv.config({
+    path: resolve(process.cwd(), '.env')
+});
 
 // Convert string value from env to boolean
 const toBoolean = (value: string | undefined, defaultValue = false): boolean => {
@@ -15,7 +19,7 @@ const toNumber = (value: string | undefined, defaultValue: number): number => {
 
 // Browser configuration
 export const HEADLESS = toBoolean(process.env.HEADLESS, false);
-export const SLOW_MO = toNumber(process.env.SLOW_MO, 300);
+export const SLOW_MO = toNumber(process.env.SLOW_MO, 1000);
 
 // Test timeouts
 export const DEFAULT_TIMEOUT = toNumber(process.env.DEFAULT_TIMEOUT, 10000);
@@ -28,8 +32,9 @@ export const BASE_URL = process.env.BASE_URL || 'http://testpages.eviltester.com
 export const TEST_DATA = {
     username: 'TestUser',
     password: 'password123',
-    checkboxes: ['cb2', 'cb3'],
-    radio: 'rd2',
-    multiple_select: ['ms1', 'ms4'],
+    comments: 'Instamo technical assessment submission.',
+    checkboxes: ['cb1', 'cb3'],
+    radio: 'rd1',
+    multiple_select_values: ['ms1', 'ms3'],
     dropdown: 'dd2'
 };
