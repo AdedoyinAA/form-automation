@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import type { Browser, Page } from '@playwright/test';
 import { EvilTester } from './pages/evilTester.js';
-import type { FormData } from './pages/evilTester.js';
+import type { EvilTesterFormData } from './pages/evilTester.js';
 import { EVIL_TESTER_URL } from './utils/config.js';
 import { Command } from 'commander';
 import fs from 'fs/promises';
@@ -35,11 +35,11 @@ import path from 'path';
   `);
 
   // Read the JSON file
-  let formData: FormData;
+  let formData: EvilTesterFormData;
   try {
     const jsonPath = path.resolve(DATA_PATH);
     const fileContents = await fs.readFile(jsonPath, 'utf-8');
-    formData = JSON.parse(fileContents) as FormData;
+    formData = JSON.parse(fileContents) as EvilTesterFormData;
   } catch (error) {
     console.error('Failed to read or parse form data JSON:', error);
     process.exit(1);
