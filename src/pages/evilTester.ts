@@ -1,16 +1,7 @@
-import { BaseFormPage } from "./baseForm.js";
+import { FormHandler } from "./baseForm.js";
 import { expect } from "playwright/test";
 
-export interface EvilTesterFormData {
-    username: string;
-    password: string;
-    comments: string;
-    checkboxes: string[];
-    radio: string;
-    multiple_select_values: string[];
-    dropdown: string;
-}
-export class EvilTester extends BaseFormPage<EvilTesterFormData> {
+export class EvilTester extends FormHandler {
     private selectors = {
         username: 'input[name="username"]',
         password: 'input[name="password"]',
