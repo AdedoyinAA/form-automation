@@ -1,4 +1,4 @@
-import { FormHandler } from "./baseForm.js";
+import { FormHandler } from "./formHandler.js";
 import { expect } from "playwright/test";
 
 export class EvilTester extends FormHandler {
@@ -52,7 +52,7 @@ export class EvilTester extends FormHandler {
                 }),
             );
 
-            // Multiple select in parallel
+            // Multiple select
             await this.page
                 .locator(this.selectors.multipleSelect)
                 .selectOption(this.data.multiple_select_values);

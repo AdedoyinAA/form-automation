@@ -1,7 +1,7 @@
 import { chromium } from "@playwright/test";
 import type { Browser, Page } from "@playwright/test";
 import { EvilTester } from "./pages/evilTester.js";
-import type { FormData } from "./pages/baseForm.js";
+import type { FormData } from "./pages/formHandler.js";
 import { EVIL_TESTER_URL } from "./utils/config.js";
 import { Command } from "commander";
 import fs from "node:fs/promises";
@@ -47,13 +47,13 @@ const main = async (): Promise<void> => {
     const DOMAIN = options.domain;
 
     console.log(`Running script with args:
-Headless - ${HEADLESS_ARG}
-Slow mo (ms) - ${SLOW_MO_ARG}
-Timeout (ms) - ${TIMEOUT_ARG}
-Auto close - ${AUTO_CLOSE}
-Form data path - ${DATA_PATH}
-Domain - ${DOMAIN}
-`);
+      Headless - ${HEADLESS_ARG}
+      Slow mo (ms) - ${SLOW_MO_ARG}
+      Timeout (ms) - ${TIMEOUT_ARG}
+      Auto close - ${AUTO_CLOSE}    
+      Form data path - ${DATA_PATH}
+      Domain - ${DOMAIN}
+    `);
 
     // Read the JSON file
     let formData: FormData;
@@ -104,7 +104,6 @@ Domain - ${DOMAIN}
             );
 
             const startTime = Date.now();
-
             const interval = setInterval(() => {
                 const elapsedMs = Date.now() - startTime;
                 const elapsedSec = Math.floor(elapsedMs / 1000);
@@ -113,13 +112,13 @@ Domain - ${DOMAIN}
                 );
             }, 5000);
 
-            await new Promise(() => {}); 
+            await new Promise(() => {});
             clearInterval(interval);
         }
     } catch (error) {
         console.error("Automation script failed: ", error);
         if (browser) {
-            console.error("Error occured: ", error);
+            console.error("Error occurred: ", error);
             await browser.close();
             process.exit(1);
         }
