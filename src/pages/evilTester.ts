@@ -30,34 +30,40 @@ export class EvilTester extends BaseFormPage<EvilTesterFormData> {
   async fillForm() {
     try {
       await this.page.goto(this.url);
-
+  
       // Fill in text inputs
       await this.page.locator(this.selectors.username).fill(this.data.username);
       await this.page.locator(this.selectors.password).fill(this.data.password);
       await this.page.locator(this.selectors.comments).fill(this.data.comments);
-
-      // Checkboxes
-      for (const value of this.data.checkboxes) {
+  
+      // Fill checkboxes in parallel
+      await Promise.all(this.data.checkboxes.map(async (value) => {
         const checkboxLocator = `${this.selectors.checkboxes}[value="${value}"]`;
         if (await this.page.locator(checkboxLocator).isVisible()) {
           await this.page.locator(checkboxLocator).check();
+        } else {
+          console.warn(`Checkbox ${value} is not visible.`);
         }
-      }
-
-      // Radio button
-      const radioLocator = `${this.selectors.radio}[value="${this.data.radio}"]`;
-      if (await this.page.locator(radioLocator).isVisible()) {
-        await this.page.locator(radioLocator).check();
-      }
-
-      // Multiple select
+      }));
+  
+      // Select radio button in parallel
+      await Promise.all([this.data.radio].map(async (value) => {
+        const radioLocator = `${this.selectors.radio}[value="${value}"]`;
+        if (await this.page.locator(radioLocator).isVisible()) {
+          await this.page.locator(radioLocator).check();
+        } else {
+          console.warn(`Radio button ${value} is not visible.`);
+        }
+      }));
+  
+      // Multiple select in parallel
       await this.page.locator(this.selectors.multipleSelect).selectOption(this.data.multiple_select_values);
-
+  
       // Dropdown
       if (await this.page.locator(this.selectors.dropdown).isVisible()) {
         await this.page.locator(this.selectors.dropdown).selectOption(this.data.dropdown);
       }
-
+  
     } catch (error) {
       console.error('Form filling failed: ', error);
       throw error;
