@@ -33,7 +33,7 @@ export class EvilTester extends FormHandler {
                 .locator(this.selectors.comments)
                 .fill(this.data.comments);
 
-            // Fill checkboxes in parallel
+            // Fill checkboxes
             for (const value of this.data.checkboxes) {
                 const checkboxSelector = `${this.selectors.checkboxes}[value="${value}"]`;
                 const checkbox = this.page.locator(checkboxSelector);
@@ -44,7 +44,7 @@ export class EvilTester extends FormHandler {
                 }
             }
 
-            // Select radio button in parallel
+            // Select radio button
             await Promise.all(
                 [this.data.radio].map(async (value) => {
                     const radioLocator = `${this.selectors.radio}[value="${value}"]`;
