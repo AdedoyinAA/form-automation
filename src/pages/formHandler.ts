@@ -21,8 +21,6 @@ export abstract class FormHandler {
     }
 
     abstract fillForm(): Promise<void>;
-
     abstract submit(): Promise<void>;
-
     abstract validateSubmission(): Promise<void>;
 }

@@ -17,6 +17,11 @@ export class EvilTester extends FormHandler {
         try {
             await this.page.goto(this.url);
 
+            // Checkbox 3 is selected by default, this would unselect it
+            await this.page
+                .locator(`${this.selectors.checkboxes}[value="cb3"]`)
+                .click();
+
             // Fill in text inputs
             await this.page
                 .locator(this.selectors.username)
@@ -29,16 +34,15 @@ export class EvilTester extends FormHandler {
                 .fill(this.data.comments);
 
             // Fill checkboxes in parallel
-            await Promise.all(
-                this.data.checkboxes.map(async (value) => {
-                    const checkboxLocator = `${this.selectors.checkboxes}[value="${value}"]`;
-                    if (await this.page.locator(checkboxLocator).isVisible()) {
-                        await this.page.locator(checkboxLocator).check();
-                    } else {
-                        console.warn(`Checkbox ${value} is not visible.`);
-                    }
-                }),
-            );
+            for (const value of this.data.checkboxes) {
+                const checkboxSelector = `${this.selectors.checkboxes}[value="${value}"]`;
+                const checkbox = this.page.locator(checkboxSelector);
+                if (await checkbox.isVisible()) {
+                    await checkbox.check();
+                } else {
+                    console.warn(`Checkbox ${value} is not visible.`);
+                }
+            }
 
             // Select radio button in parallel
             await Promise.all(
@@ -119,7 +123,6 @@ export class EvilTester extends FormHandler {
 
             const dropdownLocator = this.page.locator("#_valuedropdown");
             await expect(dropdownLocator).toHaveText(this.data.dropdown);
-
             console.log("All submitted fields verified successfully!");
         } catch (error) {
             console.error("Validation failed: ", error);

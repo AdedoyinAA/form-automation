@@ -58,14 +58,14 @@ npm install
 npm start -- [options]
 ```
 ### Command-Line Options
-| **Option**               | **Description**                                          | **Default**                         |
-| ------------------------ | -------------------------------------------------------- | ----------------------------------- |
+| **Option**               | **Description**                                            | **Default**                         |
+| -----------------------  | ---------------------------------------------------------- | ----------------------------------- |
 | `--headless <boolean>`   | Run browser in headless mode (`true`/`false`)              | `false`                             |
-| `--slow-mo <number>`     | Slow down each browser action by milliseconds            | `1000`                              |
-| `--timeout <number>`     | Timeout for page actions in milliseconds                 | `10000`                             |
+| `--slow-mo <number>`     | Slow down each browser action by milliseconds              | `1000`                              |
+| `--timeout <number>`     | Timeout for page actions in milliseconds                   | `10000`                             |
 | `--auto-close <boolean>` | Automatically close the browser when done (`true`/`false`) | `true`                              |
-| `--data <path>`          | Path to a JSON file containing form data                 | `./samples/evilTesterFormData.json` |
-| `--domain <string>`      | Domain of the form to automate                           | `testpages.eviltester.com`          |
+| `--data <path>`          | Path to a JSON file containing form data                   | `./samples/evilTesterFormData.json` |
+| `--domain <string>`      | Domain of the form to automate                             | `testpages.eviltester.com`          |
 ### Example Command
 This runs the code in demo mode (headed (browser open), slow motion):
 ```bash

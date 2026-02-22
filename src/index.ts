@@ -4,18 +4,13 @@ import { EvilTester } from "./pages/evilTester.js";
 import type { FormData } from "./pages/formHandler.js";
 import { EVIL_TESTER_URL } from "./utils/config.js";
 import { Command } from "commander";
+import type { FormHandler } from "./pages/formHandler.js";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-type FormHandler = {
-    fillForm(): Promise<void>;
-    submit(): Promise<void>;
-    validateSubmission(): Promise<void>;
-};
-
 const main = async (): Promise<void> => {
+    // Define command line arguments and defaults
     const program = new Command();
-
     program
         .option("--headless <boolean>", "Run in headless mode", "false")
         .option("--slow-mo <number>", "Slow down each action in ms", "1000")
@@ -66,8 +61,8 @@ const main = async (): Promise<void> => {
         process.exit(1);
     }
 
+    // Launch the browser
     let browser: Browser | null = null;
-
     try {
         browser = await chromium.launch({
             headless: HEADLESS_ARG,
@@ -80,7 +75,6 @@ const main = async (): Promise<void> => {
 
         // Instantiate the correct form handler based on domain argument
         let formHandler: FormHandler;
-
         switch (DOMAIN) {
             case "testpages.eviltester.com":
                 formHandler = new EvilTester(page, EVIL_TESTER_URL, formData);
@@ -96,8 +90,11 @@ const main = async (): Promise<void> => {
         await formHandler.submit();
         await formHandler.validateSubmission();
 
-        console.log("Form automation completed successfully!");
+        console.log(
+            `Form automation completed successfully for domain: ${DOMAIN}!`,
+        );
 
+        // Defines if the browser stays open or closes automatically after script completes
         if (!AUTO_CLOSE) {
             console.log(
                 "AUTO_CLOSE is false: keeping browser open. Press Ctrl+C to exit.",
