@@ -1,5 +1,5 @@
 # Form Automation Script
-This repository contains a Playwright-based automation script for submitting HTML forms on [Testpages EvilTester](http://testpages.eviltester.com/pages/forms/html-form). The script is configurable and supports command-line arguments for headless mode, slow motion, timeout, automatic closing of browser, JSON-based form data, and domain selection.
+This repository contains a Playwright-based automation script for submitting HTML forms. Currrently the only implemented form is [Testpages EvilTester](http://testpages.eviltester.com/pages/forms/html-form), but it can be extended for other forms. The entry point can read user input via command-line arguments for headless mode, slow motion, timeout, automatic closing of browser, JSON-based form data, and domain selection.
 
 ---
 
@@ -11,8 +11,16 @@ This repository contains a Playwright-based automation script for submitting HTM
 
 ---
 
+
+## Form Handling Architecture
+- The main interface for form handling can be found in the abstract class defined in the [FormHandler](./src/pages/formHandler.ts) class. 
+- Concrete subclasses implement the logic for forms on a specific domain e.g. the `testpages.eviltester.com` domain's implementation can be found in the [EvilTester](./src/pages/evilTester.ts) class.
+- The `FormHandler` class instantiated by the script is determined by the `--domain` flag.
+  
+---
+
 ## Prerequisites
-- Node.js v20+
+- Node.js v25+
 - Node Package Manager (npm)
 
 ---
@@ -63,13 +71,13 @@ npm start -- [options]
 | `--headless <boolean>`   | Run browser in headless mode (`true`/`false`)              | `false`                             |
 | `--slow-mo <number>`     | Slow down each browser action by milliseconds              | `1000`                              |
 | `--timeout <number>`     | Timeout for page actions in milliseconds                   | `10000`                             |
-| `--auto-close <boolean>` | Automatically close the browser when done (`true`/`false`) | `true`                              |
+| `--auto-close <boolean>` | Automatically close the browser when done (`true`/`false`). If `false` the browser remains open until the script is manually terminated. | `true`                              |
 | `--data <path>`          | Path to a JSON file containing form data                   | `./samples/evilTesterFormData.json` |
 | `--domain <string>`      | Domain of the form to automate                             | `testpages.eviltester.com`          |
 ### Example Command
 This runs the code in demo mode (headed (browser open), slow motion):
 ```bash
-npm start -- --headless=false --slow-mo=1500 --timeout=20000 --auto-close=false --data=./samples/evilTesterFormData.json --domain=testpages.eviltester.com
+npm start -- --headless=false --slow-mo=1250 --timeout=20000 --auto-close=false --data=./samples/evilTesterFormData.json --domain=testpages.eviltester.com
 ```
 
 ---
@@ -114,6 +122,3 @@ npm run fmt
 
 ---
 
-## N.B
-- This script currently supports only `testpages.eviltester.com` forms. Adding support for additional domains requires creating a new form automation class that extends the abstract `FormHandler` class.
-- If `--auto-close=false`, the browser will stay open indefinitely until you manually terminate the process. Periodic log messages every 5 seconds will indicate that the script is still running.
