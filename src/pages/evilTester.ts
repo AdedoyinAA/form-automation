@@ -19,7 +19,7 @@ export class EvilTester extends FormHandler {
 
             // Checkbox 3 is selected by default, this would unselect it
             await this.page
-                .locator(`${this.selectors.checkboxes}[value="cb3"]`)
+                .locator(`${this.selectors.checkboxes}[checked="checked"]`)
                 .click();
 
             // Fill in text inputs
