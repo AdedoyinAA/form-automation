@@ -6,7 +6,10 @@
   "scripts": {
     "test": "npx playwright test",
     "build": "tsc",
-    "start": "npm run build && node ./dist/index.js"
+    "start": "npm run build && node ./dist/index.js",
+    "lint": "npx @biomejs/biome lint ./src",
+    "lint:fix": "npx @biomejs/biome lint --write --unsafe ./src",
+    "fmt": "npx @biomejs/biome format --write ./src"
   },
   "keywords": [],
   "author": "",
