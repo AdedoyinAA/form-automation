@@ -4,16 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx playwright test",
+    "build": "tsc",
+    "start": "npm run build && node ./dist/index.js",
+    "lint": "npx @biomejs/biome lint ./src",
+    "lint:fix": "npx @biomejs/biome lint --write --unsafe ./src",
+    "fmt": "npx @biomejs/biome format --write ./src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
+    "@types/commander": "^2.12.0",
     "@types/node": "^25.3.0",
-    "dotenv": "^17.3.1",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "commander": "^14.0.3"
   }
 }
