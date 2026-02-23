@@ -1,5 +1,5 @@
 # Form Automation Script
-This repository contains a Playwright-based automation script for submitting HTML forms. Currrently the only implemented form is [Testpages EvilTester](http://testpages.eviltester.com/pages/forms/html-form), but it can be extended for other forms. The entry point can read user input via command-line arguments for headless mode, slow motion, timeout, automatic closing of browser, JSON-based form data, and domain selection.
+This repository contains a Playwright-based automation script for submitting HTML forms. Currently the only implemented form is [Testpages EvilTester](http://testpages.eviltester.com/pages/forms/html-form), but it can be extended to work with other forms. The entry point can read user input via command-line arguments for headless mode, slow motion, timeout, automatic closing of browser, JSON-based form data, and domain selection.
 
 ---
 

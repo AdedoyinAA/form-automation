@@ -7,12 +7,12 @@ dotenv.config();
 
 test("should successfully submit the HTML form.", async ({ page }) => {
     const evilTester = new EvilTester(page, EVIL_TESTER_URL, {
-        username: "TestUser",
+        username: "PlaywrightTestUser",
         password: "password123",
-        comments: "Instamo technical assessment submission.",
-        checkboxes: ["cb1", "cb3"],
+        comments: "Instamo technical assessment submission - Playwright test.",
+        checkboxes: ["cb1", "cb2"],
         radio: "rd1",
-        multiple_select_values: ["ms1", "ms3"],
+        multiple_select_values: ["ms1", "ms2", "ms3"],
         dropdown: "dd2",
     });
     try {
