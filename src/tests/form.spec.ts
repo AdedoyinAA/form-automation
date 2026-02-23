@@ -1,9 +1,6 @@
 import { test } from "@playwright/test";
 import { EvilTester } from "../pages/evilTester.js";
-import dotenv from "dotenv";
 import { EVIL_TESTER_URL } from "../utils/config.js";
-
-dotenv.config();
 
 test("should successfully submit the HTML form.", async ({ page }) => {
     const evilTester = new EvilTester(page, EVIL_TESTER_URL, {
